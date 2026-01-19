@@ -1,2 +1,1 @@
-PayPal: ["https://www.paypal.me/remusrigo", PayPal]
-Revolut: ["https://www.revolut.me/remusrigo", Revolut]
+custom: ["https://www.paypal.me/remusrigo", PayPal, "https://www.revolut.me/remusrigo", Revolut]
