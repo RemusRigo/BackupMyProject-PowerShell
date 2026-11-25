@@ -38,6 +38,7 @@ See the [User's Guide](UsersGuide.md) for requirements, installation and usage.
 
 ## Roadmap
 
+* 2025-11-25: Fix: delete whole temp dir (including the GUID)
 * 2025-07-22: Add: modify Install.ps1 to create .bat file directly in the SendTo folder
 * 2025-06-30: Add: project redesigned
 * 2025-05-22: Project started

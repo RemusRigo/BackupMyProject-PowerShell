@@ -1,6 +1,6 @@
 #---------------------------------------------------------------------------------------------------------------------------
 # Backup My Project
-#   © 2025 Remus Rigo
+#   Â© 2025 Remus Rigo
 #      v1.2 2026-06-01
 
 param (
@@ -35,31 +35,37 @@ function BackupFile($inputLocation, $zipFolderStructure)
    $tempDir = Join-Path $tempRoot $tempGuid
    New-Item -ItemType Directory -Path $tempDir | Out-Null
 
-   # Forders inside ZIP file
-   $structuredFolder = Join-Path $tempDir $zipFolderStructure
-   New-Item -ItemType Directory -Path $structuredFolder | Out-Null
-
-   # copy files or folder in %temp%
-   if ($isDirectory)
+   try
    {
-      Copy-Item -Path (Join-Path $inputLocation "*") -Destination $structuredFolder -Recurse
-   }
-   else
-   {
-      Copy-Item $inputLocation -Destination $structuredFolder
-   }
+      # Folders inside ZIP file
+      $structuredFolder = Join-Path $tempDir $zipFolderStructure
+      New-Item -ItemType Directory -Path $structuredFolder | Out-Null
 
-   # Create or update the ZIP archive
-   if (Test-Path $zipArchive) {
-      Compress-Archive -Path (Join-Path $tempDir "*") -Update -DestinationPath $zipArchive
-   }
-   else
-   {
-      Compress-Archive -Path (Join-Path $tempDir "*") -DestinationPath $zipArchive
-   }
+      # copy files or folder in %temp%
+      if ($isDirectory)
+      {
+         Copy-Item -Path (Join-Path $inputLocation "*") -Destination $structuredFolder -Recurse -ErrorAction Stop
+      }
+      else
+      {
+         Copy-Item $inputLocation -Destination $structuredFolder -ErrorAction Stop
+      }
 
-   # Clean up %temp% folder
-   Remove-Item $structuredFolder -Recurse -Force
+      # Create or update the ZIP archive
+      if (Test-Path $zipArchive)
+      {
+         Compress-Archive -Path (Join-Path $tempDir "*") -Update -DestinationPath $zipArchive -ErrorAction Stop
+      }
+      else
+      {
+         Compress-Archive -Path (Join-Path $tempDir "*") -DestinationPath $zipArchive -ErrorAction Stop
+      }
+   }
+   finally
+   {
+      # Clean up %temp%: always runs, even if copying or zipping failed
+      Remove-Item -LiteralPath $tempDir -Recurse -Force -ErrorAction SilentlyContinue
+   }
 }
 
 #---------------------------------------------------------------------------------------------------------------------------
@@ -77,7 +83,7 @@ elseif (Test-Path $Location -PathType Leaf) # Location is file -----------------
 }
 else
 {
-    Write-Output "Invalid path: $Path"
+    Write-Output "Invalid path: $Location"
 }
 
 
