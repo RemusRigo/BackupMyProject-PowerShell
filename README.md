@@ -21,7 +21,7 @@ Backup My Project: a PowerShell script that archives a project folder (or file) 
 
 ## User's Guide
 
-See the [User's Guide](UsersGuide.md) for requirements, installation and usage.
+See the [User's Guide](Users%20Guide.md) for requirements, installation and usage.
 
 
 
