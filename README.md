@@ -28,7 +28,6 @@ See the [User's Guide](Users%20Guide.md) for requirements, installation and usag
 ## Statistics
 
 ![PowerShell](https://img.shields.io/badge/Language-PowerShell-blue)
-![VSCode](https://img.shields.io/badge/IDE-VS%20Code-purple)
 ![ZIP](https://img.shields.io/badge/File-ZIP-yellow)
 <br>
 ![status](https://img.shields.io/badge/status-completed-brightgreen) 
